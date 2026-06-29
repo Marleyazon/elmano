@@ -1,7 +1,7 @@
 {
   "name": "ElmañoOficìal",
   "short_name": "Elmaño",
-  "start_url": "elmaño.html",
+  "start_url": "index.html",
   "display": "standalone",
   "icons": [
     {
