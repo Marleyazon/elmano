@@ -5,25 +5,27 @@
     <title>ElmañoOficìal</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
+        body { font-family: sans-serif; padding: 20px; }
         .menu-container { position: relative; display: inline-block; }
-        .menu-content { display: none; border: 1px solid #000; padding: 10px; background: #fff; }
-        .sub-group { margin-top: 10px; }
-        .visible { display: block; }
+        .menu-content { display: none; border: 1px solid #000; padding: 15px; background: #f9f9f9; margin-top: 10px; }
+        .menu-content.visible { display: block; }
+        .page { display: none; margin-top: 20px; }
+        .page.active { display: block; }
+        .box { border: 1px solid #000; padding: 10px; margin-bottom: 10px; border-radius: 5px; }
+        .sub-group { margin-bottom: 15px; }
     </style>
 </head>
 <body>
 
     <h1>Bienvenue sur Elmaño</h1>
 
-    <!-- Le bouton 3 petits points -->
+    <!-- Bouton 3 petits points -->
     <div class="menu-container">
         <button onclick="toggleMenu()">...</button>
         
         <div id="mainMenu" class="menu-content">
-            <!-- Bouton Menu -->
-            <div><button>Menu</button></div>
+            <div class="sub-group"><button>Menu</button></div>
 
-            <!-- Bouton Liens -->
             <div class="sub-group">
                 <button>Liens</button>
                 <ul>
@@ -32,22 +34,47 @@
                 </ul>
             </div>
 
-            <!-- Bouton Infos -->
             <div class="sub-group">
-                <button>Infos</button>
-                <button>Mises à jour</button>
+                <button onclick="showPage('infos')">Infos</button>
+                <button onclick="showPage('updates')">Mises à jour</button>
             </div>
 
-            <!-- Bouton Histoire -->
             <div class="sub-group">
-                <button>Histoire</button>
+                <button onclick="showPage('histoire')">Histoire</button>
             </div>
         </div>
+    </div>
+
+    <!-- Contenu des pages -->
+    <div id="infos" class="page">
+        <h2>Infos</h2>
+        <div class="box">
+            <strong>1.0 : Début de l'application Elmaño.</strong><br>
+            - Découvrer nos 3 sites et naviguer.
+        </div>
+    </div>
+
+    <div id="updates" class="page">
+        <h2>Mises à jour</h2>
+        <div class="box">
+            <strong>1.1 : Mise à jour.</strong><br>
+            Infos, histoires et exercices rajoutaient.
+        </div>
+    </div>
+
+    <div id="histoire" class="page">
+        <h2>Histoire</h2>
+        <p>Ici se trouve l'histoire de Elmaño.</p>
     </div>
 
     <script>
         function toggleMenu() {
             document.getElementById("mainMenu").classList.toggle("visible");
+        }
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            document.getElementById("mainMenu").classList.remove("visible");
         }
     </script>
 
