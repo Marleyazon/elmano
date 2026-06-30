@@ -35,6 +35,9 @@
             <button onclick="showPage('menu')">Menu</button>
             <button onclick="showPage('liens')">Liens</button>
         </div>
+        <h3>Cours :</h3>
+        <p>Cùrso n°1 en Elmaño : Debùtante A0+.</p>
+        <a href="https://youtu.be/tQWN9DhKSm0?is=GxuLTuiI-_QzwO97">Accéder au cours</a>
     </div>
 
     <div id="liens" class="page content">
@@ -79,7 +82,6 @@
         function showPage(pageId) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
-            // Ferme la bande si nécessaire
             document.getElementById("sideBar").style.width = "0";
         }
     </script>
