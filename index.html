@@ -3,57 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <title>ElmañoOficìal</title>
-    <link rel="manifest" href="manifest.json">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        body { font-family: sans-serif; padding: 20px; }
-        .menu { display: flex; gap: 10px; margin-bottom: 20px; }
-        .menu button { padding: 10px; cursor: pointer; }
-        .page { display: none; }
-        .active { display: block; }
-        .box { border: 1px solid #000; padding: 15px; margin-bottom: 10px; width: fit-content; }
+        .menu-container { position: relative; display: inline-block; }
+        .menu-content { display: none; border: 1px solid #000; padding: 10px; background: #fff; }
+        .sub-group { margin-top: 10px; }
+        .visible { display: block; }
     </style>
 </head>
 <body>
 
     <h1>Bienvenue sur Elmaño</h1>
 
-    <div class="menu">
-        <button onclick="showPage('infos')">Infos</button>
-        <button onclick="showPage('histoire')">Histoire</button>
-        <button onclick="showPage('exercices')">Exercices</button>
-    </div>
+    <!-- Le bouton 3 petits points -->
+    <div class="menu-container">
+        <button onclick="toggleMenu()">...</button>
+        
+        <div id="mainMenu" class="menu-content">
+            <!-- Bouton Menu -->
+            <div><button>Menu</button></div>
 
-    <div id="infos" class="page active">
-        <h2>Infos</h2>
-        <div class="box">
-            <strong>1.0 : Début de l'application Elmaño.</strong><br>
-            - Découvrer nos 3 sites et naviguer.
+            <!-- Bouton Liens -->
+            <div class="sub-group">
+                <button>Liens</button>
+                <ul>
+                    <li>Livres d'exercices</li>
+                    <li>Agenda</li>
+                </ul>
+            </div>
+
+            <!-- Bouton Infos -->
+            <div class="sub-group">
+                <button>Infos</button>
+                <button>Mises à jour</button>
+            </div>
+
+            <!-- Bouton Histoire -->
+            <div class="sub-group">
+                <button>Histoire</button>
+            </div>
         </div>
-        <div class="box">
-            <strong>1.1 : Mise à jour.</strong><br>
-            Infos, histoires et exercices rajoutaient.
-        </div>
-    </div>
-
-    <div id="histoire" class="page">
-        <h2>Histoire</h2>
-        <p>Contenu de l'histoire ici...</p>
-    </div>
-
-    <div id="exercices" class="page">
-        <h2>Exercices</h2>
-        <ul>
-            <li><a href="https://read.bookcreator.com/Cx7Su8cUCWV4uJO2vjHDS5YmUOm1/1ENUrkYhQRer5VCb7uszsg">Libre Elmaño</a></li>
-            <li><a href="https://read.bookcreator.com/Cx7Su8cUCWV4uJO2vjHDS5YmUOm1/e4FLXjOAQA2p7O23D7UFOQ">Libre Ejercicios Elmaño OSSO</a></li>
-            <li><a href="https://limto.my.canva.site/jeremi">Ajenda Elmaño</a></li>
-        </ul>
     </div>
 
     <script>
-        function showPage(pageId) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById(pageId).classList.add('active');
+        function toggleMenu() {
+            document.getElementById("mainMenu").classList.toggle("visible");
         }
     </script>
 
