@@ -13,6 +13,7 @@
         .content { padding: 20px; }
         .page { display: none; }
         .active { display: block; }
+        .nav-bar { display: flex; gap: 10px; margin-bottom: 20px; }
     </style>
 </head>
 <body>
@@ -30,7 +31,7 @@
     </div>
 
     <div id="menu" class="page active content">
-        <div class="menu-bar">
+        <div class="nav-bar">
             <button onclick="showPage('menu')">Menu</button>
             <button onclick="showPage('liens')">Liens</button>
         </div>
@@ -48,15 +49,11 @@
         </ul>
     </div>
 
-    <div id="histoire" class="page content">
-        <h1 style="text-align: center; margin-top: 20%;">DER</h1>
-    </div>
-
-    <div id="exercices" class="page content">
-        <h1>Exercices</h1>
-    </div>
-
     <div id="infos" class="page content">
+        <div class="nav-bar">
+            <button onclick="showPage('infos')">Infos</button>
+            <button onclick="showPage('mises-a-jour')">Mises a jour</button>
+        </div>
         <h1>Infos</h1>
     </div>
 
@@ -64,6 +61,14 @@
         <h1>Mises a jour</h1>
         <div class="box">1.0 : Debut...</div>
         <div class="box">1.1 : Mise a jour...</div>
+    </div>
+
+    <div id="histoire" class="page content">
+        <h1 style="text-align: center; margin-top: 20%;">DER</h1>
+    </div>
+
+    <div id="exercices" class="page content">
+        <h1>Exercices</h1>
     </div>
 
     <script>
