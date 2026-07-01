@@ -6,11 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body { font-family: sans-serif; margin: 0; }
-        /* Bande laterale */
         #sideBar { height: 100%; width: 0; position: fixed; top: 0; left: 0; background: #eee; overflow-x: hidden; transition: 0.3s; padding-top: 60px; border-right: 1px solid #ccc; z-index: 10; }
         #sideBar button { display: block; width: 100%; padding: 15px; text-align: left; border: none; background: none; font-size: 18px; cursor: pointer; }
         .close-btn { position: absolute; top: 0; right: 10px; font-size: 30px; cursor: pointer; }
-        /* Pages */
         .content { padding: 20px; }
         .page { display: none; }
         .active { display: block; }
@@ -27,6 +25,7 @@
         <button onclick="showPage('menu')">Menu</button>
         <button onclick="showPage('histoire')">Histoire</button>
         <button onclick="showPage('exercices')">Exercices</button>
+        <button onclick="showPage('parametres')">Paramètres</button>
         <button onclick="showPage('infos')">Infos</button>
     </div>
 
@@ -35,43 +34,20 @@
             <button onclick="showPage('menu')">Menu</button>
             <button onclick="showPage('liens')">Liens</button>
         </div>
-        <h3>Cours :</h3>
-        <p>Cùrso n°1 en Elmaño : Debùtante A0+.</p>
-        <a href="https://youtu.be/tQWN9DhKSm0?is=GxuLTuiI-_QzwO97">Accéder au cours</a>
+        <h3 class="i18n" data-fr="Cours :">Cours :</h3>
+        <p class="i18n" data-fr="Cùrso n°1 en Elmaño : Debùtante A0+.">Cùrso n°1 en Elmaño : Debùtante A0+.</p>
+        <a href="https://youtu.be/tQWN9DhKSm0?is=GxuLTuiI-_QzwO97" class="i18n" data-fr="Accéder au cours">Accéder au cours</a>
     </div>
 
-    <div id="liens" class="page content">
-        <div class="nav-bar">
-            <button onclick="showPage('menu')">Menu</button>
-            <button onclick="showPage('liens')">Liens</button>
-        </div>
-        <h3>Livres d'exercices :</h3>
-        <ul>
-            <li><a href="https://read.bookcreator.com/Cx7Su8cUCWV4uJO2vjHDS5YmUOm1/1ENUrkYhQRer5VCb7uszsg">Libre Elmaño</a></li>
-            <li><a href="https://read.bookcreator.com/Cx7Su8cUCWV4uJO2vjHDS5YmUOm1/e4FLXjOAQA2p7O23D7UFOQ">Libre Ejercicios Elmaño OSSO</a></li>
-        </ul>
-        <h3>Agenda :</h3>
-        <ul>
-            <li><a href="https://limto.my.canva.site/jeremi">Ajenda Elmaño</a></li>
-        </ul>
-    </div>
-
-    <div id="infos" class="page content">
-        <div class="nav-bar">
-            <button onclick="showPage('infos')">Infos</button>
-            <button onclick="showPage('mises-a-jour')">Mises a jour</button>
-        </div>
-        <h1>Infos</h1>
-    </div>
-
-    <div id="mises-a-jour" class="page content">
-        <div class="nav-bar">
-            <button onclick="showPage('infos')">Infos</button>
-            <button onclick="showPage('mises-a-jour')">Mises a jour</button>
-        </div>
-        <h1>Mises a jour</h1>
-        <div class="box"><strong>1.0 : Début de l'application Elmaño.</strong><br>- Découvrer nos 3 sites et naviguer.</div>
-        <div class="box"><strong>1.1 : Mise à jour.</strong><br>Infos, histoires et exercices rajoutaient.</div>
+    <div id="parametres" class="page content">
+        <h3 class="i18n" data-fr="Langue :">Langue :</h3>
+        <button onclick="changeLang('fr')">Français</button>
+        <button onclick="changeLang('en')">English</button>
+        <button onclick="changeLang('es')">Español</button>
+        <button onclick="changeLang('pt')">Português</button>
+        <button onclick="changeLang('ca')">Català</button>
+        <button onclick="changeLang('ru')">Русский</button>
+        <button onclick="changeLang('ja')">日本語</button>
     </div>
 
     <div id="histoire" class="page content"><h1 style="text-align: center; margin-top: 20%;">DER</h1></div>
@@ -83,6 +59,21 @@
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
             document.getElementById("sideBar").style.width = "0";
+        }
+        
+        const translations = {
+            'en': { "Cours :": "Courses:", "Langue :": "Language:", "Menu": "Menu" },
+            'es': { "Cours :": "Cursos:", "Langue :": "Idioma:", "Menu": "Menú" }
+            // Ajoutez les autres langues ici
+        };
+
+        function changeLang(lang) {
+            document.querySelectorAll('.i18n').forEach(el => {
+                if (lang === 'fr') el.innerText = el.getAttribute('data-fr');
+                else if (translations[lang] && translations[lang][el.innerText]) {
+                    el.innerText = translations[lang][el.innerText];
+                }
+            });
         }
     </script>
 </body>
