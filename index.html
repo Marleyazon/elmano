@@ -2,18 +2,13 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>ElmañoOficìal</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="title">ElmañoOficìal</title>
     <style>
         body { font-family: sans-serif; margin: 0; }
-        #sideBar { height: 100%; width: 0; position: fixed; top: 0; left: 0; background: #eee; overflow-x: hidden; transition: 0.3s; padding-top: 60px; border-right: 1px solid #ccc; z-index: 10; }
+        #sideBar { height: 100%; width: 0; position: fixed; top: 0; left: 0; background: #eee; transition: 0.3s; padding-top: 60px; z-index: 10; }
         #sideBar button { display: block; width: 100%; padding: 15px; text-align: left; border: none; background: none; font-size: 18px; cursor: pointer; }
-        .close-btn { position: absolute; top: 0; right: 10px; font-size: 30px; cursor: pointer; }
-        .content { padding: 20px; }
-        .page { display: none; }
+        .page { display: none; padding: 20px; }
         .active { display: block; }
-        .nav-bar { display: flex; gap: 10px; margin-bottom: 20px; }
-        .box { border: 1px solid #000; padding: 15px; margin-bottom: 10px; border-radius: 5px; }
     </style>
 </head>
 <body>
@@ -21,26 +16,20 @@
     <button onclick="toggleSideBar()">...</button>
 
     <div id="sideBar">
-        <span class="close-btn" onclick="toggleSideBar()">&times;</span>
-        <button onclick="showPage('menu')">Menu</button>
-        <button onclick="showPage('histoire')">Histoire</button>
-        <button onclick="showPage('exercices')">Exercices</button>
-        <button onclick="showPage('parametres')">Paramètres</button>
-        <button onclick="showPage('infos')">Infos</button>
+        <button onclick="showPage('menu')" data-key="menu">Menu</button>
+        <button onclick="showPage('histoire')" data-key="histoire">Histoire</button>
+        <button onclick="showPage('exercices')" data-key="exercices">Exercices</button>
+        <button onclick="showPage('parametres')" data-key="parametres">Paramètres</button>
+        <button onclick="showPage('infos')" data-key="infos">Infos</button>
     </div>
 
-    <div id="menu" class="page active content">
-        <div class="nav-bar">
-            <button onclick="showPage('menu')">Menu</button>
-            <button onclick="showPage('liens')">Liens</button>
-        </div>
-        <h3 class="i18n" data-fr="Cours :">Cours :</h3>
-        <p class="i18n" data-fr="Cùrso n°1 en Elmaño : Debùtante A0+.">Cùrso n°1 en Elmaño : Debùtante A0+.</p>
-        <a href="https://youtu.be/tQWN9DhKSm0?is=GxuLTuiI-_QzwO97" class="i18n" data-fr="Accéder au cours">Accéder au cours</a>
+    <div id="menu" class="page active">
+        <h3 data-key="cours">Cours :</h3>
+        <p data-key="desc">Cùrso n°1 en Elmaño : Debùtante A0+.</p>
     </div>
 
-    <div id="parametres" class="page content">
-        <h3 class="i18n" data-fr="Langue :">Langue :</h3>
+    <div id="parametres" class="page">
+        <h3 data-key="langue">Langue :</h3>
         <button onclick="changeLang('fr')">Français</button>
         <button onclick="changeLang('en')">English</button>
         <button onclick="changeLang('es')">Español</button>
@@ -50,31 +39,25 @@
         <button onclick="changeLang('ja')">日本語</button>
     </div>
 
-    <div id="histoire" class="page content"><h1 style="text-align: center; margin-top: 20%;">DER</h1></div>
-    <div id="exercices" class="page content"><h1>Exercices</h1></div>
-
     <script>
-        function toggleSideBar() { const sb = document.getElementById("sideBar"); sb.style.width = sb.style.width === "250px" ? "0" : "250px"; }
-        function showPage(pageId) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById(pageId).classList.add('active');
-            document.getElementById("sideBar").style.width = "0";
-        }
-        
-        const translations = {
-            'en': { "Cours :": "Courses:", "Langue :": "Language:", "Menu": "Menu" },
-            'es': { "Cours :": "Cursos:", "Langue :": "Idioma:", "Menu": "Menú" }
-            // Ajoutez les autres langues ici
+        const dict = {
+            'en': { 'menu': 'Menu', 'histoire': 'History', 'exercices': 'Exercises', 'parametres': 'Settings', 'infos': 'Info', 'cours': 'Course:', 'desc': 'Course n°1 in Elmaño: Beginner A0+', 'langue': 'Language:' },
+            'es': { 'menu': 'Menú', 'histoire': 'Historia', 'exercices': 'Ejercicios', 'parametres': 'Ajustes', 'infos': 'Info', 'cours': 'Curso:', 'desc': 'Curso n°1 en Elmaño: Principiante A0+', 'langue': 'Idioma:' },
+            'pt': { 'menu': 'Menu', 'histoire': 'História', 'exercices': 'Exercícios', 'parametres': 'Configurações', 'infos': 'Info', 'cours': 'Curso:', 'desc': 'Curso n°1 em Elmaño: Iniciante A0+', 'langue': 'Idioma:' },
+            'ca': { 'menu': 'Menú', 'histoire': 'Història', 'exercices': 'Exercicis', 'parametres': 'Configuració', 'infos': 'Info', 'cours': 'Curs:', 'desc': 'Curs núm. 1 en Elmaño: Principiant A0+', 'langue': 'Llengua:' },
+            'ru': { 'menu': 'Меню', 'histoire': 'История', 'exercices': 'Упражнения', 'parametres': 'Настройки', 'infos': 'Информация', 'cours': 'Курс:', 'desc': 'Курс №1 на Elmaño: Новичок A0+', 'langue': 'Язык:' },
+            'ja': { 'menu': 'メニュー', 'histoire': '歴史', 'exercices': '演習', 'parametres': '設定', 'infos': '情報', 'cours': 'コース:', 'desc': 'ElmañoコースNo.1: 初級A0+', 'langue': '言語:' }
         };
 
         function changeLang(lang) {
-            document.querySelectorAll('.i18n').forEach(el => {
-                if (lang === 'fr') el.innerText = el.getAttribute('data-fr');
-                else if (translations[lang] && translations[lang][el.innerText]) {
-                    el.innerText = translations[lang][el.innerText];
-                }
+            if(lang === 'fr') location.reload(); 
+            document.querySelectorAll('[data-key]').forEach(el => {
+                const key = el.getAttribute('data-key');
+                if(dict[lang][key]) el.innerText = dict[lang][key];
             });
         }
+        function toggleSideBar() { const sb = document.getElementById("sideBar"); sb.style.width = sb.style.width === "250px" ? "0" : "250px"; }
+        function showPage(id) { document.querySelectorAll('.page').forEach(p => p.classList.remove('active')); document.getElementById(id).classList.add('active'); document.getElementById("sideBar").style.width = "0"; }
     </script>
 </body>
 </html>
