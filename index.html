@@ -16,7 +16,7 @@
         .box { border: 1px solid #000; padding: 15px; margin-bottom: 10px; border-radius: 5px; }
     </style>
 </head>
-<body>
+<body onload="changeLang('el')">
 
     <button onclick="toggleSideBar()">...</button>
 
@@ -83,11 +83,12 @@
 
     <script>
         const dict = {
+            'fr': { 'title': 'ElmañoOficìal', 'menu': 'Menu', 'histoire': 'Histoire', 'exercices': 'Exercices', 'parametres': 'Paramètres', 'infos': 'Informations', 'sorteados': 'Liens', 'maj': 'Mises à jour', 'cursos': 'Cours :', 'desc': 'Cùrso n°1 en Elmaño : Debùtante A0+.', 'admar': 'Accéder au cours', 'livres': 'Livres d\'exercices', 'agenda': 'Agenda', 'lenjuas': 'Langues :', 'v10': '1.0 : Début de l\'application Elmaño.', 'desc10': '- Découvrir nos 3 sites et naviguer.', 'v11': '1.1 : Mise à jour.', 'desc11': 'Informations, histoires et exercices ajoutés.' },
             'el': { 'title': 'ElmañoOficìal', 'menu': 'Menù', 'histoire': 'Historìa', 'exercices': 'Ejercicios', 'parametres': 'Parametras', 'infos': 'Informationes', 'sorteados': 'Sortéados', 'maj': 'Mise a jue', 'cursos': 'Cùrsos :', 'desc': 'Cùrso nº1 en Elmaño : Debùtante A0+.', 'admar': 'Admar o cùrso.', 'livres': 'Libre de del ejercicios', 'agenda': 'Ajenda', 'lenjuas': 'Lenjùas:', 'v10': '1.0 : Jo assé de la aplicatìon Elmaño.', 'desc10': '- Decùvrar dis 3 daqs e navijar.', 'v11': '1.1 : Mise a jue.', 'desc11': 'Informationes, historias e ejercicios plùsarée.' },
-            'en': { 'title': 'ElmañoOfficial', 'menu': 'Menu', 'histoire': 'History', 'exercices': 'Exercises', 'parametres': 'Settings', 'infos': 'Information', 'sorteados': 'Sorted', 'maj': 'Updates', 'cursos': 'Courses:', 'desc': 'Course n°1 in Elmaño: Beginner A0+', 'admar': 'Access course', 'livres': 'Exercise books', 'agenda': 'Agenda', 'lenjuas': 'Languages:', 'v10': '1.0: Elmaño app start.', 'desc10': '- Discover 3 sites and navigate.', 'v11': '1.1: Update.', 'desc11': 'Info, history and exercises added.' }
+            'en': { 'title': 'ElmañoOfficial', 'menu': 'Menu', 'histoire': 'History', 'exercices': 'Exercises', 'parametres': 'Settings', 'infos': 'Information', 'sorteados': 'Sorted', 'maj': 'Updates', 'cursos': 'Courses:', 'desc': 'Course n°1 in Elmaño: Beginner A0+', 'admar': 'Access course', 'livres': 'Exercise books', 'agenda': 'Agenda', 'lenjuas': 'Languages:', 'v10': '1.0: Start.', 'desc10': '- Discover 3 sites.', 'v11': '1.1: Update.', 'desc11': 'Info added.' }
         };
 
-        function changeLang(lang) { if(lang === 'fr') { location.reload(); return; } document.querySelectorAll('[data-key]').forEach(el => { const key = el.getAttribute('data-key'); if(dict[lang] && dict[lang][key]) el.innerText = dict[lang][key]; }); }
+        function changeLang(lang) { document.querySelectorAll('[data-key]').forEach(el => { const key = el.getAttribute('data-key'); if(dict[lang] && dict[lang][key]) el.innerText = dict[lang][key]; }); }
         function toggleSideBar() { const sb = document.getElementById("sideBar"); sb.style.width = sb.style.width === "250px" ? "0" : "250px"; }
         function showPage(id) { document.querySelectorAll('.page').forEach(p => p.classList.remove('active')); document.getElementById(id).classList.add('active'); document.getElementById("sideBar").style.width = "0"; }
     </script>
