@@ -2,13 +2,18 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title id="title">ElmañoOficìal</title>
+    <title data-key="title">ElmañoOficìal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body { font-family: sans-serif; margin: 0; }
-        #sideBar { height: 100%; width: 0; position: fixed; top: 0; left: 0; background: #eee; transition: 0.3s; padding-top: 60px; z-index: 10; }
+        #sideBar { height: 100%; width: 0; position: fixed; top: 0; left: 0; background: #eee; overflow-x: hidden; transition: 0.3s; padding-top: 60px; border-right: 1px solid #ccc; z-index: 10; }
         #sideBar button { display: block; width: 100%; padding: 15px; text-align: left; border: none; background: none; font-size: 18px; cursor: pointer; }
-        .page { display: none; padding: 20px; }
+        .close-btn { position: absolute; top: 0; right: 10px; font-size: 30px; cursor: pointer; }
+        .content { padding: 20px; }
+        .page { display: none; }
         .active { display: block; }
+        .nav-bar { display: flex; gap: 10px; margin-bottom: 20px; }
+        .box { border: 1px solid #000; padding: 15px; margin-bottom: 10px; border-radius: 5px; }
     </style>
 </head>
 <body>
@@ -16,6 +21,7 @@
     <button onclick="toggleSideBar()">...</button>
 
     <div id="sideBar">
+        <span class="close-btn" onclick="toggleSideBar()">&times;</span>
         <button onclick="showPage('menu')" data-key="menu">Menu</button>
         <button onclick="showPage('histoire')" data-key="histoire">Histoire</button>
         <button onclick="showPage('exercices')" data-key="exercices">Exercices</button>
@@ -23,12 +29,51 @@
         <button onclick="showPage('infos')" data-key="infos">Infos</button>
     </div>
 
-    <div id="menu" class="page active">
+    <div id="menu" class="page active content">
+        <div class="nav-bar">
+            <button onclick="showPage('menu')" data-key="menu">Menu</button>
+            <button onclick="showPage('liens')" data-key="liens">Liens</button>
+        </div>
         <h3 data-key="cours">Cours :</h3>
         <p data-key="desc">Cùrso n°1 en Elmaño : Debùtante A0+.</p>
+        <a href="https://youtu.be/tQWN9DhKSm0?is=GxuLTuiI-_QzwO97" data-key="acces">Accéder au cours</a>
     </div>
 
-    <div id="parametres" class="page">
+    <div id="liens" class="page content">
+        <div class="nav-bar">
+            <button onclick="showPage('menu')" data-key="menu">Menu</button>
+            <button onclick="showPage('liens')" data-key="liens">Liens</button>
+        </div>
+        <h3 data-key="livres">Livres d'exercices :</h3>
+        <ul>
+            <li><a href="https://read.bookcreator.com/Cx7Su8cUCWV4uJO2vjHDS5YmUOm1/1ENUrkYhQRer5VCb7uszsg">Libre Elmaño</a></li>
+            <li><a href="https://read.bookcreator.com/Cx7Su8cUCWV4uJO2vjHDS5YmUOm1/e4FLXjOAQA2p7O23D7UFOQ">Libre Ejercicios Elmaño OSSO</a></li>
+        </ul>
+        <h3 data-key="agenda">Agenda :</h3>
+        <ul>
+            <li><a href="https://limto.my.canva.site/jeremi">Ajenda Elmaño</a></li>
+        </ul>
+    </div>
+
+    <div id="infos" class="page content">
+        <div class="nav-bar">
+            <button onclick="showPage('infos')" data-key="infos">Infos</button>
+            <button onclick="showPage('mises-a-jour')" data-key="maj">Mises à jour</button>
+        </div>
+        <h1 data-key="infos">Infos</h1>
+    </div>
+
+    <div id="mises-a-jour" class="page content">
+        <div class="nav-bar">
+            <button onclick="showPage('infos')" data-key="infos">Infos</button>
+            <button onclick="showPage('mises-a-jour')" data-key="maj">Mises à jour</button>
+        </div>
+        <h1 data-key="maj">Mises à jour</h1>
+        <div class="box"><strong data-key="v10">1.0 : Début de l'application Elmaño.</strong><br><span data-key="desc10">- Découvrer nos 3 sites et naviguer.</span></div>
+        <div class="box"><strong data-key="v11">1.1 : Mise à jour.</strong><br><span data-key="desc11">Infos, histoires et exercices rajoutaient.</span></div>
+    </div>
+
+    <div id="parametres" class="page content">
         <h3 data-key="langue">Langue :</h3>
         <button onclick="changeLang('fr')">Français</button>
         <button onclick="changeLang('en')">English</button>
@@ -39,21 +84,20 @@
         <button onclick="changeLang('ja')">日本語</button>
     </div>
 
+    <div id="histoire" class="page content"><h1 style="text-align: center; margin-top: 20%;">DER</h1></div>
+    <div id="exercices" class="page content"><h1 data-key="exercices">Exercices</h1></div>
+
     <script>
         const dict = {
-            'en': { 'menu': 'Menu', 'histoire': 'History', 'exercices': 'Exercises', 'parametres': 'Settings', 'infos': 'Info', 'cours': 'Course:', 'desc': 'Course n°1 in Elmaño: Beginner A0+', 'langue': 'Language:' },
-            'es': { 'menu': 'Menú', 'histoire': 'Historia', 'exercices': 'Ejercicios', 'parametres': 'Ajustes', 'infos': 'Info', 'cours': 'Curso:', 'desc': 'Curso n°1 en Elmaño: Principiante A0+', 'langue': 'Idioma:' },
-            'pt': { 'menu': 'Menu', 'histoire': 'História', 'exercices': 'Exercícios', 'parametres': 'Configurações', 'infos': 'Info', 'cours': 'Curso:', 'desc': 'Curso n°1 em Elmaño: Iniciante A0+', 'langue': 'Idioma:' },
-            'ca': { 'menu': 'Menú', 'histoire': 'Història', 'exercices': 'Exercicis', 'parametres': 'Configuració', 'infos': 'Info', 'cours': 'Curs:', 'desc': 'Curs núm. 1 en Elmaño: Principiant A0+', 'langue': 'Llengua:' },
-            'ru': { 'menu': 'Меню', 'histoire': 'История', 'exercices': 'Упражнения', 'parametres': 'Настройки', 'infos': 'Информация', 'cours': 'Курс:', 'desc': 'Курс №1 на Elmaño: Новичок A0+', 'langue': 'Язык:' },
-            'ja': { 'menu': 'メニュー', 'histoire': '歴史', 'exercices': '演習', 'parametres': '設定', 'infos': '情報', 'cours': 'コース:', 'desc': 'ElmañoコースNo.1: 初級A0+', 'langue': '言語:' }
+            'en': { 'title': 'ElmañoOfficial', 'menu': 'Menu', 'histoire': 'History', 'exercices': 'Exercises', 'parametres': 'Settings', 'infos': 'Info', 'liens': 'Links', 'maj': 'Updates', 'cours': 'Course:', 'desc': 'Course n°1 in Elmaño: Beginner A0+', 'acces': 'Access course', 'livres': 'Exercise Books:', 'agenda': 'Agenda:', 'langue': 'Language:', 'v10': '1.0: Start of Elmaño app.', 'desc10': '- Discover our 3 sites.', 'v11': '1.1: Update.', 'desc11': 'Infos, stories and exercises added.' },
+            // Tu peux ajouter les autres langues ici sur le meme modele
         };
 
         function changeLang(lang) {
-            if(lang === 'fr') location.reload(); 
+            if(lang === 'fr') { location.reload(); return; }
             document.querySelectorAll('[data-key]').forEach(el => {
                 const key = el.getAttribute('data-key');
-                if(dict[lang][key]) el.innerText = dict[lang][key];
+                if(dict[lang] && dict[lang][key]) el.innerText = dict[lang][key];
             });
         }
         function toggleSideBar() { const sb = document.getElementById("sideBar"); sb.style.width = sb.style.width === "250px" ? "0" : "250px"; }
