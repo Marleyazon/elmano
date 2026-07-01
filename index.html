@@ -14,7 +14,6 @@
         .active { display: block; }
         .nav-bar { display: flex; gap: 10px; margin-bottom: 20px; }
         .box { border: 1px solid #000; padding: 15px; margin-bottom: 10px; border-radius: 5px; }
-        /* Switch */
         .switch { position: relative; display: inline-block; width: 50px; height: 24px; margin-top: 10px; }
         .switch input { opacity: 0; width: 0; height: 0; }
         .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 24px; }
@@ -78,16 +77,17 @@
         <h1 data-key="maj">Mise a jue</h1>
         <div class="box"><strong data-key="v10">1.0 : Jo assé de la aplicatìon Elmaño.</strong><br><span data-key="desc10">- Decùvrar dis 3 daqs e navijar.</span></div>
         <div class="box"><strong data-key="v11">1.1 : Mise a jue.</strong><br><span data-key="desc11">Informationes, historias e ejercicios plùsarée.</span></div>
+        <div class="box"><strong data-key="v12">1.2 : Musique de fond + Parametres.</strong><br><span data-key="desc12">Mùscica en fondra + Parametras.</span></div>
     </div>
 
     <div id="parametres" class="page content">
         <h3 data-key="lenjuas">Lenjùas:</h3>
-        <button onclick="changeLang('fr')">Francais</button>
+        <button onclick="changeLang('fr')">Français</button>
         <button onclick="changeLang('el')">Elmaño</button>
         <button onclick="changeLang('en')">English</button>
-        <button onclick="changeLang('es')">Espanol</button>
-        <button onclick="changeLang('pt')">Portugues</button>
-        <button onclick="changeLang('ca')">Catala</button>
+        <button onclick="changeLang('es')">Español</button>
+        <button onclick="changeLang('pt')">Português</button>
+        <button onclick="changeLang('ca')">Català</button>
         <button onclick="changeLang('ru')">Русский</button>
         <button onclick="changeLang('ja')">日本語</button>
         
@@ -97,40 +97,31 @@
             <input type="checkbox" id="linkToggle" onchange="toggleLinks()">
             <span class="slider"></span>
         </label>
+        <h3 data-key="musique">Musique</h3>
+        <button onclick="toggleMusic()" data-key="btn_music">Activer/Couper la musique</button>
     </div>
 
     <div id="histoire" class="page content"><h1 style="text-align: center; margin-top: 20%;">DER</h1></div>
     <div id="exercices" class="page content"><h1 data-key="exercices">Ejercicios</h1></div>
 
+    <audio id="bgMusic" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+
     <script>
         const dict = {
-            'el': { 'title': 'ElmañoOficìal', 'menu': 'Menù', 'histoire': 'Historìa', 'exercices': 'Ejercicios', 'parametres': 'Parametras', 'infos': 'Informationes', 'sorteados': 'Sortéados', 'maj': 'Mise a jue', 'cursos': 'Cùrsos :', 'desc': 'Cùrso nº1 en Elmaño : Debùtante A0+.', 'admar': 'Admar o cùrso.', 'livres': 'Libre de del ejercicios', 'agenda': 'Ajenda', 'lenjuas': 'Lenjùas:', 'liens_title': 'Sortéados', 'act_liens': 'Actìvar los sortéados', 'v10': '1.0 : Jo assé de la aplicatìon Elmaño.', 'desc10': '- Decùvrar dis 3 daqs e navijar.', 'v11': '1.1 : Mise a jue.', 'desc11': 'Informationes, historias e ejercicios plùsarée.' },
-            'fr': { 'title': 'ElmañoOficìal', 'menu': 'Menu', 'histoire': 'Histoire', 'exercices': 'Exercices', 'parametres': 'Parametres', 'infos': 'Informations', 'sorteados': 'Liens', 'maj': 'Mises a jour', 'cursos': 'Cours :', 'desc': 'Cùrso n°1 en Elmaño : Debùtante A0+.', 'admar': 'Acceder au cours', 'livres': 'Livres d\'exercices', 'agenda': 'Agenda', 'lenjuas': 'Langues :', 'liens_title': 'Liens', 'act_liens': 'Activer les liens', 'v10': '1.0 : Debut de l\'application Elmaño.', 'desc10': '- Decouvrir nos 3 sites et naviguer.', 'v11': '1.1 : Mise a jour.', 'desc11': 'Informations, histoires et exercices ajoutes.' },
-            'en': { 'title': 'ElmañoOfficial', 'menu': 'Menu', 'histoire': 'History', 'exercices': 'Exercises', 'parametres': 'Settings', 'infos': 'Information', 'sorteados': 'Links', 'maj': 'Updates', 'cursos': 'Courses:', 'desc': 'Course n°1 in Elmaño: Beginner A0+', 'admar': 'Access course', 'livres': 'Exercise books', 'agenda': 'Agenda', 'lenjuas': 'Languages:', 'liens_title': 'Links', 'act_liens': 'Enable links', 'v10': '1.0: Start.', 'desc10': '- Discover 3 sites.', 'v11': '1.1: Update.', 'desc11': 'Info added.' },
-            'es': { 'title': 'ElmañoOficial', 'menu': 'Menu', 'histoire': 'Historia', 'exercices': 'Ejercicios', 'parametres': 'Ajustes', 'infos': 'Informacion', 'sorteados': 'Enlaces', 'maj': 'Actualizaciones', 'cursos': 'Cursos:', 'desc': 'Curso n°1 en Elmaño: Principiante A0+', 'admar': 'Acceder al curso', 'livres': 'Libros de ejercicios', 'agenda': 'Agenda', 'lenjuas': 'Idiomas:', 'liens_title': 'Enlaces', 'act_liens': 'Activar enlaces', 'v10': '1.0: Inicio de la app Elmaño.', 'desc10': '- Descubre nuestros 3 sitios.', 'v11': '1.1: Actualizacion.', 'desc11': 'Infos, historias y ejercicios anadidos.' },
-            'pt': { 'title': 'ElmañoOficial', 'menu': 'Menu', 'histoire': 'Historia', 'exercices': 'Exercicios', 'parametres': 'Configuracoes', 'infos': 'Informacoes', 'sorteados': 'Links', 'maj': 'Atualizacoes', 'cursos': 'Cursos:', 'desc': 'Curso n°1 em Elmaño: Iniciante A0+', 'admar': 'Acessar curso', 'livres': 'Livros de exercicios', 'agenda': 'Agenda', 'lenjuas': 'Idiomas:', 'liens_title': 'Links', 'act_liens': 'Ativar links', 'v10': '1.0: Inicio da app Elmaño.', 'desc10': '- Descubra nossos 3 sites.', 'v11': '1.1: Atualizacao.', 'desc11': 'Infos, historias e exercicios adicionados.' },
-            'ca': { 'title': 'ElmañoOficial', 'menu': 'Menu', 'histoire': 'Historia', 'exercices': 'Exercicis', 'parametres': 'Configuracio', 'infos': 'Informacio', 'sorteados': 'Enllacos', 'maj': 'Actualitzacions', 'cursos': 'Curs:', 'desc': 'Curs num. 1 en Elmaño: Principiant A0+', 'admar': 'Accedir al curs', 'livres': 'Llibres d\'exercicis', 'agenda': 'Agenda', 'lenjuas': 'Llengues:', 'liens_title': 'Enllacos', 'act_liens': 'Activar enllacos', 'v10': '1.0: Inici de l\'app Elmaño.', 'desc10': '- Descobreix els nostres 3 llocs.', 'v11': '1.1: Actualitzacio.', 'desc11': 'Infos, histories i exercicis afegits.' },
-            'ru': { 'title': 'ElmañoOfficial', 'menu': 'Меню', 'histoire': 'История', 'exercices': 'Упражнения', 'parametres': 'Настройки', 'infos': 'Информация', 'sorteados': 'Ссылки', 'maj': 'Обновления', 'cursos': 'Курс:', 'desc': 'Курс №1 на Elmaño: Новичок A0+', 'admar': 'Перейти к курсу', 'livres': 'Учебники', 'agenda': 'Повестка дня', 'lenjuas': 'Языки:', 'liens_title': 'Ссылки', 'act_liens': 'Включить ссылки', 'v10': '1.0: Запуск приложения Elmaño.', 'desc10': '- Откройте для себя наши 3 сайта.', 'v11': '1.1: Обновление.', 'desc11': 'Добавлены информация, истории и упражнения.' },
-            'ja': { 'title': 'ElmañoOfficial', 'menu': 'メニュー', 'histoire': '歴史', 'exercices': '演習', 'parametres': '設定', 'infos': '情報', 'sorteados': 'リンク', 'maj': 'アップデート', 'cursos': 'コース:', 'desc': 'ElmañoコースNo.1: 初級A0+', 'admar': 'コースにアクセス', 'livres': '演習書', 'agenda': 'アジェンダ', 'lenjuas': '言語:', 'liens_title': 'リンク', 'act_liens': 'リンクを有効にする', 'v10': '1.0: Elmañoアプリ開始。', 'desc10': '- 3つのサイトを発見してください。', 'v11': '1.1: アップデート。', 'desc11': '情報、ストーリー、演習が追加されました。' }
+            'el': { 'title': 'ElmañoOficìal', 'menu': 'Menù', 'histoire': 'Historìa', 'exercices': 'Ejercicios', 'parametres': 'Parametras', 'infos': 'Informationes', 'sorteados': 'Sortéados', 'maj': 'Mise a jue', 'cursos': 'Cùrsos :', 'desc': 'Cùrso nº1 en Elmaño : Debùtante A0+.', 'admar': 'Admar o cùrso.', 'livres': 'Libre de del ejercicios', 'agenda': 'Ajenda', 'lenjuas': 'Lenjùas:', 'liens_title': 'Sortéados', 'act_liens': 'Actìvar los sortéados', 'musique': 'Mùsica', 'btn_music': 'Admar/Pausar la mùsica', 'v10': '1.0 : Jo assé de la aplicatìon Elmaño.', 'desc10': '- Decùvrar dis 3 daqs e navijar.', 'v11': '1.1 : Mise a jue.', 'desc11': 'Informationes, historias e ejercicios plùsarée.', 'v12': '1.2 : Mùscica en fondra + Parametras.', 'desc12': '- Mùscica en fondra + Parametras.' },
+            'fr': { 'title': 'ElmañoOficìal', 'menu': 'Menu', 'histoire': 'Histoire', 'exercices': 'Exercices', 'parametres': 'Parametres', 'infos': 'Informations', 'sorteados': 'Liens', 'maj': 'Mises a jour', 'cursos': 'Cours :', 'desc': 'Cùrso n°1 en Elmaño : Debùtante A0+.', 'admar': 'Acceder au cours', 'livres': 'Livres d\'exercices', 'agenda': 'Agenda', 'lenjuas': 'Langues :', 'liens_title': 'Liens', 'act_liens': 'Activer les liens', 'musique': 'Musique', 'btn_music': 'Activer/Couper la musique', 'v10': '1.0 : Debut de l\'application Elmaño.', 'desc10': '- Decouvrir nos 3 sites et naviguer.', 'v11': '1.1 : Mise a jour.', 'desc11': 'Informations, histoires et exercices ajoutes.', 'v12': '1.2 : Musique de fond + Parametres.', 'desc12': '- Musique de fond + Parametres.' },
+            'en': { 'title': 'ElmañoOfficial', 'menu': 'Menu', 'histoire': 'History', 'exercices': 'Exercises', 'parametres': 'Settings', 'infos': 'Information', 'sorteados': 'Links', 'maj': 'Updates', 'cursos': 'Courses:', 'desc': 'Course n°1 in Elmaño: Beginner A0+', 'admar': 'Access course', 'livres': 'Exercise books', 'agenda': 'Agenda', 'lenjuas': 'Languages:', 'liens_title': 'Links', 'act_liens': 'Enable links', 'musique': 'Music', 'btn_music': 'Play/Pause music', 'v10': '1.0: Start.', 'desc10': '- Discover 3 sites.', 'v11': '1.1: Update.', 'desc11': 'Info added.', 'v12': '1.2: Background Music + Settings.', 'desc12': '- Background Music + Settings.' },
+            'es': { 'title': 'ElmañoOficial', 'menu': 'Menú', 'histoire': 'Historia', 'exercices': 'Ejercicios', 'parametres': 'Ajustes', 'infos': 'Información', 'sorteados': 'Enlaces', 'maj': 'Actualizaciones', 'cursos': 'Cursos:', 'desc': 'Curso n°1 en Elmaño: Principiante A0+', 'admar': 'Acceder al curso', 'livres': 'Libros de ejercicios', 'agenda': 'Agenda', 'lenjuas': 'Idiomas:', 'liens_title': 'Enlaces', 'act_liens': 'Activar enlaces', 'musique': 'Música', 'btn_music': 'Activar/Pausar música', 'v10': '1.0: Inicio.', 'desc10': '- Descubre 3 sitios.', 'v11': '1.1: Actualización.', 'desc11': 'Infos añadidas.', 'v12': '1.2: Música de fondo + Ajustes.', 'desc12': '- Música de fondo + Ajustes.' },
+            'pt': { 'title': 'ElmañoOficial', 'menu': 'Menu', 'histoire': 'História', 'exercices': 'Exercícios', 'parametres': 'Configurações', 'infos': 'Informações', 'sorteados': 'Links', 'maj': 'Atualizações', 'cursos': 'Cursos:', 'desc': 'Curso n°1 em Elmaño: Iniciante A0+', 'admar': 'Acessar curso', 'livres': 'Livros de exercícios', 'agenda': 'Agenda', 'lenjuas': 'Idiomas:', 'liens_title': 'Links', 'act_liens': 'Ativar links', 'musique': 'Música', 'btn_music': 'Ativar/Pausar música', 'v10': '1.0: Início.', 'desc10': '- Descubra 3 sites.', 'v11': '1.1: Atualização.', 'desc11': 'Infos adicionadas.', 'v12': '1.2: Música de fundo + Configurações.', 'desc12': '- Música de fundo + Configurações.' },
+            'ca': { 'title': 'ElmañoOficial', 'menu': 'Menú', 'histoire': 'Història', 'exercices': 'Exercicis', 'parametres': 'Configuració', 'infos': 'Informació', 'sorteados': 'Enllaços', 'maj': 'Actualitzacions', 'cursos': 'Curs:', 'desc': 'Curs núm. 1 en Elmaño: Principiant A0+', 'admar': 'Accedir al curs', 'livres': 'Llibres d\'exercicis', 'agenda': 'Agenda', 'lenjuas': 'Llengües:', 'liens_title': 'Enllaços', 'act_liens': 'Activar enllaços', 'musique': 'Música', 'btn_music': 'Activar/Pausar música', 'v10': '1.0: Inici.', 'desc10': '- Descobreix 3 llocs.', 'v11': '1.1: Actualització.', 'desc11': 'Infos afegides.', 'v12': '1.2: Música de fons + Configuració.', 'desc12': '- Música de fons + Configuració.' },
+            'ru': { 'title': 'ElmañoOfficial', 'menu': 'Меню', 'histoire': 'История', 'exercices': 'Упражнения', 'parametres': 'Настройки', 'infos': 'Информация', 'sorteados': 'Ссылки', 'maj': 'Обновления', 'cursos': 'Курс:', 'desc': 'Курс №1 на Elmaño: Новичок A0+', 'admar': 'Перейти', 'livres': 'Учебники', 'agenda': 'Повестка', 'lenjuas': 'Языки:', 'liens_title': 'Ссылки', 'act_liens': 'Включить ссылки', 'musique': 'Музыка', 'btn_music': 'Вкл/Выкл музыку', 'v10': '1.0: Запуск.', 'desc10': '- 3 сайта.', 'v11': '1.1: Обновление.', 'desc11': 'Добавлено.', 'v12': '1.2: Музыка + Настройки.', 'desc12': '- Музыка + Настройки.' },
+            'ja': { 'title': 'ElmañoOfficial', 'menu': 'メニュー', 'histoire': '歴史', 'exercices': '演習', 'parametres': '設定', 'infos': '情報', 'sorteados': 'リンク', 'maj': 'アップデート', 'cursos': 'コース:', 'desc': 'ElmañoコースNo.1: 初級A0+', 'admar': 'コース', 'livres': '演習書', 'agenda': 'アジェンダ', 'lenjuas': '言語:', 'liens_title': 'リンク', 'act_liens': 'リンク有効化', 'musique': '音楽', 'btn_music': '音楽の再生/停止', 'v10': '1.0: 開始。', 'desc10': '- 3つのサイト。', 'v11': '1.1: アップデート。', 'desc11': '追加情報。', 'v12': '1.2: 背景音楽 + 設定。', 'desc12': '- 背景音楽 + 設定。' }
         };
 
-        function toggleLinks() { 
-            const enabled = document.getElementById('linkToggle').checked; 
-            document.querySelectorAll('.nav-link').forEach(link => { 
-                if (!enabled) { 
-                    if(link.getAttribute('href')) {
-                        link.dataset.href = link.getAttribute('href'); 
-                    }
-                    link.removeAttribute('href'); 
-                    link.style.color = 'gray'; 
-                    link.style.pointerEvents = 'none'; 
-                } else { 
-                    link.setAttribute('href', link.dataset.href); 
-                    link.style.color = ''; 
-                    link.style.pointerEvents = 'auto'; 
-                } 
-            }); 
-        }
+        function toggleLinks() { const enabled = document.getElementById('linkToggle').checked; document.querySelectorAll('.nav-link').forEach(link => { if (!enabled) { if(link.getAttribute('href')) link.dataset.href = link.getAttribute('href'); link.removeAttribute('href'); link.style.color = 'gray'; link.style.pointerEvents = 'none'; } else { link.setAttribute('href', link.dataset.href); link.style.color = ''; link.style.pointerEvents = 'auto'; } }); }
+        function toggleMusic() { const music = document.getElementById('bgMusic'); music.paused ? music.play() : music.pause(); }
         function changeLang(lang) { document.querySelectorAll('[data-key]').forEach(el => { const key = el.getAttribute('data-key'); if(dict[lang] && dict[lang][key]) el.innerText = dict[lang][key]; }); }
         function toggleSideBar() { const sb = document.getElementById("sideBar"); sb.style.width = sb.style.width === "250px" ? "0" : "250px"; }
         function showPage(id) { document.querySelectorAll('.page').forEach(p => p.classList.remove('active')); document.getElementById(id).classList.add('active'); document.getElementById("sideBar").style.width = "0"; }
