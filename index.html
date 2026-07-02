@@ -24,7 +24,7 @@
 </head>
 <body onload="changeLang('el'); toggleLinks()">
 
-    <button onclick="toggleSideBar()">MENU</button>
+    <button onclick="toggleSideBar()">...</button>
 
     <div id="sideBar">
         <span class="close-btn" onclick="toggleSideBar()">&times;</span>
@@ -42,7 +42,7 @@
         </div>
         <h3 data-key="cursos">Cùrsos :</h3>
         <p data-key="desc">Cùrso nº1 en Elmaño : Debùtante A0+.</p>
-        <a class="nav-link" href="https://youtu.be/tQWN9DhKSm0" data-key="admar">Admar o cùrso.</a>
+        <a class="nav-link" href="https://youtu.be/tQWN9DhKSm0?is=GxuLTuiI-_QzwO97" data-key="admar">Admar o cùrso.</a>
     </div>
 
     <div id="liens" class="page content">
@@ -88,45 +88,53 @@
             <button onclick="showPage('mises-a-jour')" data-key="maj">Mise a jue</button>
         </div>
         <h1 data-key="maj">Mise a jue</h1>
-        <div class="box"><strong data-key="v10">1.0 : Jo assé de la aplicatìon Elmaño.</strong></div>
+        <div class="box"><strong data-key="v10">1.0 : Jo assé de la aplicatìon Elmaño.</strong><br><span data-key="desc10">- Decùvrar dis 3 daqs e navijar.</span></div>
+        <div class="box"><strong data-key="v11">1.1 : Mise a jue.</strong><br><span data-key="desc11">- Informationes, historias e ejercicios plùsarée.</span></div>
+        <div class="box"><strong data-key="v12">1.2 : Mùscica en fondra + Parametras.</strong><br><span data-key="desc12">- Mùscica en fondra + Parametras.</span></div>
     </div>
 
     <div id="parametres" class="page content">
         <h3 data-key="lenjuas">Lenjùas:</h3>
-        <button onclick="changeLang('el')">Elmaño</button>
         <button onclick="changeLang('fr')">Français</button>
+        <button onclick="changeLang('el')">Elmaño</button>
         <button onclick="changeLang('en')">English</button>
         <button onclick="changeLang('es')">Español</button>
         <button onclick="changeLang('pt')">Português</button>
         <button onclick="changeLang('ca')">Català</button>
         <button onclick="changeLang('ru')">Русский</button>
         <button onclick="changeLang('ja')">日本語</button>
+        
+        <h3 data-key="liens_title">Liens</h3>
+        <span data-key="act_liens">Activer les liens</span><br>
+        <label class="switch"><input type="checkbox" id="linkToggle" onchange="toggleLinks()"><span class="slider"></span></label>
+
         <h3 data-key="musique">Mùsica</h3>
+        <span data-key="act_musique">Activar la mùsica</span><br>
         <label class="switch"><input type="checkbox" id="musicToggle" onchange="toggleMusic()"><span class="slider"></span></label>
+        <div id="volumeControl" style="display:none; margin-top:10px;">
+            <span data-key="vol">Zerthar sòn</span><br>
+            <input type="range" min="0" max="1" step="0.1" value="1" oninput="setVolume(this.value)">
+        </div>
     </div>
 
-    <audio id="bgMusic" loop src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+    <audio id="bgMusic" loop><source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg"></audio>
 
     <script>
         const dict = {
-            'el': { 'title': 'ElmañoOficìal', 'menu': 'Menù', 'histoire': 'Historìa', 'exercices': 'Ejercicios', 'parametres': 'Parametras', 'infos': 'Informationes', 'sorteados': 'Sortéados', 'maj': 'Mise a jue', 'cursos': 'Cùrsos :', 'desc': 'Cùrso nº1 en Elmaño : Debùtante A0+.', 'admar': 'Admar o cùrso.', 'livres': 'Libre de del ejercicios', 'agenda': 'Ajenda', 'lenjuas': 'Lenjùas:', 'musique': 'Mùsica', 'verbos': 'Verbos', 'v1': '1) Conjùje la verbe etre.', 'v2': '2) Conjùje la verbe avèr.', 'v3': '3) Conjùje la verbe aller.', 'presentare': 'Presentaré', 'p1': '1) Présenta te.', 'p2': '2) Fer uña maìsone Dimentiòn2 avèc las zé pieças en Elmaño.', 'v10': '1.0 : Jo assé de la aplicatìon Elmaño.' },
-            'fr': { 'title': 'ElmañoOficìal', 'menu': 'Menu', 'histoire': 'Histoire', 'exercices': 'Exercices', 'parametres': 'Parametres', 'infos': 'Informations', 'sorteados': 'Liens', 'maj': 'Mises a jour', 'cursos': 'Cours :', 'desc': 'Cùrso n°1 en Elmaño : Debùtante A0+.', 'admar': 'Acceder au cours', 'livres': 'Livres d\'exercices', 'agenda': 'Agenda', 'lenjuas': 'Langues :', 'musique': 'Musique', 'verbos': 'Verbes', 'v1': '1) Conjugue le verbe etre.', 'v2': '2) Conjugue le verbe avoir.', 'v3': '3) Conjugue le verbe aller.', 'presentare': 'Presente toi', 'p1': '1) Presente toi.', 'p2': '2) Faire une maison 2D avec les pieces en Elmaño.', 'v10': '1.0 : Debut de l\'application Elmaño.' },
-            'en': { 'title': 'ElmañoOfficial', 'menu': 'Menu', 'histoire': 'History', 'exercices': 'Exercises', 'parametres': 'Settings', 'infos': 'Information', 'sorteados': 'Links', 'maj': 'Updates', 'cursos': 'Courses:', 'desc': 'Course n°1 in Elmaño: Beginner A0+', 'admar': 'Access course', 'livres': 'Exercise books', 'agenda': 'Agenda', 'lenjuas': 'Languages:', 'musique': 'Music', 'verbos': 'Verbs', 'v1': '1) Conjugate the verb to be.', 'v2': '2) Conjugate the verb to have.', 'v3': '3) Conjugate the verb to go.', 'presentare': 'Introduce yourself', 'p1': '1) Introduce yourself.', 'p2': '2) Make a 2D house with pieces in Elmaño.', 'v10': '1.0: Start of Elmaño app.' },
-            'es': { 'title': 'ElmañoOficial', 'menu': 'Menú', 'histoire': 'Historia', 'exercices': 'Ejercicios', 'parametres': 'Ajustes', 'infos': 'Información', 'sorteados': 'Enlaces', 'maj': 'Actualizaciones', 'cursos': 'Cursos:', 'desc': 'Curso n°1 en Elmaño: Principiante A0+', 'admar': 'Acceder al curso', 'livres': 'Libros de ejercicios', 'agenda': 'Agenda', 'lenjuas': 'Idiomas:', 'musique': 'Música', 'verbos': 'Verbos', 'v1': '1) Conjuga el verbo ser.', 'v2': '2) Conjuga el verbo haber.', 'v3': '3) Conjuga el verbo ir.', 'presentare': 'Presentarse', 'p1': '1) Preséntate.', 'p2': '2) Haz una casa 2D con piezas en Elmaño.', 'v10': '1.0: Inicio de la app Elmaño.' },
-            'pt': { 'title': 'ElmañoOficial', 'menu': 'Menu', 'histoire': 'História', 'exercices': 'Exercícios', 'parametres': 'Configurações', 'infos': 'Informações', 'sorteados': 'Links', 'maj': 'Atualizações', 'cursos': 'Cursos:', 'desc': 'Curso n°1 em Elmaño: Iniciante A0+', 'admar': 'Acessar curso', 'livres': 'Livros de exercícios', 'agenda': 'Agenda', 'lenjuas': 'Idiomas:', 'musique': 'Música', 'verbos': 'Verbos', 'v1': '1) Conjugue o verbo ser.', 'v2': '2) Conjugue o verbo ter.', 'v3': '3) Conjugue o verbo ir.', 'presentare': 'Apresente-se', 'p1': '1) Apresente-se.', 'p2': '2) Faça uma casa 2D com peças em Elmaño.', 'v10': '1.0: Início da app Elmaño.' },
-            'ca': { 'title': 'ElmañoOficial', 'menu': 'Menú', 'histoire': 'Història', 'exercices': 'Exercicis', 'parametres': 'Configuració', 'infos': 'Informació', 'sorteados': 'Enllaços', 'maj': 'Actualitzacions', 'cursos': 'Curs:', 'desc': 'Curs núm. 1 en Elmaño: Principiant A0+', 'admar': 'Accedir al curs', 'livres': 'Llibres d\'exercicis', 'agenda': 'Agenda', 'lenjuas': 'Llengües:', 'musique': 'Música', 'verbos': 'Verbs', 'v1': '1) Conjugueu el verb ser.', 'v2': '2) Conjugueu el verb tenir.', 'v3': '3) Conjugueu el verb anar.', 'presentare': 'Presenta\'t', 'p1': '1) Presenta\'t.', 'p2': '2) Fes una casa 2D amb peces en Elmaño.', 'v10': '1.0: Inici de l\'app Elmaño.' },
-            'ru': { 'title': 'ElmañoOfficial', 'menu': 'Меню', 'histoire': 'История', 'exercices': 'Упражнения', 'parametres': 'Настройки', 'infos': 'Информация', 'sorteados': 'Ссылки', 'maj': 'Обновления', 'cursos': 'Курс:', 'desc': 'Курс №1 на Elmaño: Новичок A0+', 'admar': 'Перейти', 'livres': 'Учебники', 'agenda': 'Повестка', 'lenjuas': 'Языки:', 'musique': 'Музыка', 'verbos': 'Глаголы', 'v1': '1) Спрягайте глагол "быть".', 'v2': '2) Спрягайте глагол "иметь".', 'v3': '3) Спрягайте глагол "идти".', 'presentare': 'Представьтесь', 'p1': '1) Представьтесь.', 'p2': '2) Сделайте 2D-дом из деталей на Elmaño.', 'v10': '1.0: Запуск приложения Elmaño.' },
-            'ja': { 'title': 'ElmañoOfficial', 'menu': 'メニュー', 'histoire': '歴史', 'exercices': '演習', 'parametres': '設定', 'infos': '情報', 'sorteados': 'リンク', 'maj': 'アップデート', 'cursos': 'コース:', 'desc': 'ElmañoコースNo.1: 初級A0+', 'admar': 'コース', 'livres': '演習書', 'agenda': 'アジェンダ', 'lenjuas': '言語:', 'musique': '音楽', 'verbos': '動詞', 'v1': '1) 動詞「である」を活用する。', 'v2': '2) 動詞「持つ」を活用する。', 'v3': '3) 動詞「行く」を活用する。', 'presentare': '自己紹介', 'p1': '1) 自己紹介する。', 'p2': '2) Elmañoのパーツで2Dハウスを作る。', 'v10': '1.0: Elmañoアプリの開始。' }
+            'el': { 'title': 'ElmañoOficìal', 'menu': 'Menù', 'histoire': 'Historìa', 'exercices': 'Ejercicios', 'parametres': 'Parametras', 'infos': 'Informationes', 'sorteados': 'Sortéados', 'maj': 'Mise a jue', 'cursos': 'Cùrsos :', 'desc': 'Cùrso nº1 en Elmaño : Debùtante A0+.', 'admar': 'Admar o cùrso.', 'livres': 'Libre de del ejercicios', 'agenda': 'Ajenda', 'lenjuas': 'Lenjùas:', 'liens_title': 'Sortéados', 'act_liens': 'Actìvar los sortéados', 'musique': 'Mùsica', 'act_musique': 'Activar la mùsica', 'vol': 'Zerthar sòn', 'v10': '1.0 : Jo assé de la aplicatìon Elmaño.', 'desc10': '- Decùvrar dis 3 daqs e navijar.', 'v11': '1.1 : Mise a jue.', 'desc11': '- Informationes, historias e ejercicios plùsarée.', 'v12': '1.2 : Mùscica en fondra + Parametras.', 'desc12': '- Mùscica en fondra + Parametras.', 'verbos': 'Verbos', 'v1': '1) Conjùje la verbe etre.', 'v2': '2) Conjùje la verbe avèr.', 'v3': '3) Conjùje la verbe aller.', 'presentare': 'Presentaré', 'p1': '1) Présente toi.', 'p2': '2) Fer uña maìsone Dimentiòn2 avèc las zé pieças en Elmaño.' },
+            'fr': { 'title': 'ElmañoOficìal', 'menu': 'Menu', 'histoire': 'Histoire', 'exercices': 'Exercices', 'parametres': 'Parametres', 'infos': 'Informations', 'sorteados': 'Liens', 'maj': 'Mises a jour', 'cursos': 'Cours :', 'desc': 'Cùrso n°1 en Elmaño : Debùtante A0+.', 'admar': 'Acceder au cours', 'livres': 'Livres d\'exercices', 'agenda': 'Agenda', 'lenjuas': 'Langues :', 'liens_title': 'Liens', 'act_liens': 'Activer les liens', 'musique': 'Musique', 'act_musique': 'Activer la musique', 'vol': 'Regler le son', 'v10': '1.0 : Debut de l\'application Elmaño.', 'desc10': '- Decouvrir nos 3 sites et naviguer.', 'v11': '1.1 : Mise a jour.', 'desc11': '- Informations, histoires et exercices ajoutes.', 'v12': '1.2 : Musique de fond + Parametres.', 'desc12': '- Musique de fond + Parametres.', 'verbos': 'Verbes', 'v1': '1) Conjugue le verbe etre.', 'v2': '2) Conjugue le verbe avoir.', 'v3': '3) Conjugue le verbe aller.', 'presentare': 'Presente toi', 'p1': '1) Presente toi.', 'p2': '2) Faire une maison 2D avec les pieces en Elmaño.' },
+            'en': { 'title': 'ElmañoOfficial', 'menu': 'Menu', 'histoire': 'History', 'exercices': 'Exercises', 'parametres': 'Settings', 'infos': 'Information', 'sorteados': 'Links', 'maj': 'Updates', 'cursos': 'Courses:', 'desc': 'Course n°1 in Elmaño: Beginner A0+', 'admar': 'Access course', 'livres': 'Exercise books', 'agenda': 'Agenda', 'lenjuas': 'Languages:', 'liens_title': 'Links', 'act_liens': 'Enable links', 'musique': 'Music', 'act_musique': 'Enable music', 'vol': 'Adjust volume', 'verbos': 'Verbs', 'v1': '1) Conjugate the verb to be.', 'v2': '2) Conjugate the verb to have.', 'v3': '3) Conjugate the verb to go.', 'presentare': 'Introduce yourself', 'p1': '1) Introduce yourself.', 'p2': '2) Make a 2D house with pieces in Elmaño.' },
+            'es': { 'title': 'ElmañoOficial', 'menu': 'Menú', 'histoire': 'Historia', 'exercices': 'Ejercicios', 'parametres': 'Ajustes', 'infos': 'Información', 'sorteados': 'Enlaces', 'maj': 'Actualizaciones', 'cursos': 'Cursos:', 'desc': 'Curso n°1 en Elmaño: Principiante A0+', 'admar': 'Acceder al curso', 'livres': 'Libros de ejercicios', 'agenda': 'Agenda', 'lenjuas': 'Idiomas:', 'liens_title': 'Enlaces', 'act_liens': 'Activar enlaces', 'musique': 'Música', 'act_musique': 'Activar música', 'vol': 'Ajustar sonido', 'verbos': 'Verbos', 'v1': '1) Conjuga el verbo ser.', 'v2': '2) Conjuga el verbo haber.', 'v3': '3) Conjuga el verbo ir.', 'presentare': 'Presentarse', 'p1': '1) Preséntate.', 'p2': '2) Haz una casa 2D con piezas en Elmaño.' },
+            'pt': { 'title': 'ElmañoOficial', 'menu': 'Menu', 'histoire': 'História', 'exercices': 'Exercícios', 'parametres': 'Configurações', 'infos': 'Informações', 'sorteados': 'Links', 'maj': 'Atualizações', 'cursos': 'Cursos:', 'desc': 'Curso n°1 em Elmaño: Iniciante A0+', 'admar': 'Acessar curso', 'livres': 'Livros de exercícios', 'agenda': 'Agenda', 'lenjuas': 'Idiomas:', 'liens_title': 'Links', 'act_liens': 'Ativar links', 'musique': 'Música', 'act_musique': 'Ativar música', 'vol': 'Ajustar som', 'verbos': 'Verbos', 'v1': '1) Conjugue o verbo ser.', 'v2': '2) Conjugue o verbo ter.', 'v3': '3) Conjugue o verbo ir.', 'presentare': 'Apresente-se', 'p1': '1) Apresente-se.', 'p2': '2) Faça uma casa 2D com peças em Elmaño.' },
+            'ca': { 'title': 'ElmañoOficial', 'menu': 'Menú', 'histoire': 'Història', 'exercices': 'Exercicis', 'parametres': 'Configuració', 'infos': 'Informació', 'sorteados': 'Enllaços', 'maj': 'Actualitzacions', 'cursos': 'Curs:', 'desc': 'Curs núm. 1 en Elmaño: Principiant A0+', 'admar': 'Accedir al curs', 'livres': 'Llibres d\'exercicis', 'agenda': 'Agenda', 'lenjuas': 'Llengües:', 'liens_title': 'Enllaços', 'act_liens': 'Activar enllaços', 'musique': 'Música', 'act_musique': 'Activar música', 'vol': 'Ajustar so', 'verbos': 'Verbs', 'v1': '1) Conjugueu el verb ser.', 'v2': '2) Conjugueu el verb tenir.', 'v3': '3) Conjugueu el verb anar.', 'presentare': 'Presenta\'t', 'p1': '1) Presenta\'t.', 'p2': '2) Fes una casa 2D amb peces en Elmaño.' },
+            'ru': { 'title': 'ElmañoOfficial', 'menu': 'Меню', 'histoire': 'История', 'exercices': 'Упражнения', 'parametres': 'Настройки', 'infos': 'Информация', 'sorteados': 'Ссылки', 'maj': 'Обновления', 'cursos': 'Курс:', 'desc': 'Курс №1 на Elmaño: Новичок A0+', 'admar': 'Перейти', 'livres': 'Учебники', 'agenda': 'Повестка', 'lenjuas': 'Языки:', 'liens_title': 'Ссылки', 'act_liens': 'Включить ссылки', 'musique': 'Музыка', 'act_musique': 'Включить музыку', 'vol': 'Громкость', 'verbos': 'Глаголы', 'v1': '1) Спрягайте глагол "быть".', 'v2': '2) Спрягайте глагол "иметь".', 'v3': '3) Спрягайте глагол "идти".', 'presentare': 'Представьтесь', 'p1': '1) Представьтесь.', 'p2': '2) Сделайте 2D-дом из деталей на Elmaño.' },
+            'ja': { 'title': 'ElmañoOfficial', 'menu': 'メニュー', 'histoire': '歴史', 'exercices': '演習', 'parametres': '設定', 'infos': '情報', 'sorteados': 'リンク', 'maj': 'アップデート', 'cursos': 'コース:', 'desc': 'ElmañoコースNo.1: 初級A0+', 'admar': 'コース', 'livres': '演習書', 'agenda': 'アジェンダ', 'lenjuas': '言語:', 'liens_title': 'リンク', 'act_liens': 'リンク有効化', 'musique': '音楽', 'act_musique': '音楽を有効化', 'vol': '音量調整', 'verbos': '動詞', 'v1': '1) 動詞「である」を活用する。', 'v2': '2) 動詞「持つ」を活用する。', 'v3': '3) 動詞「行く」を活用する。', 'presentare': '自己紹介', 'p1': '1) 自己紹介する。', 'p2': '2) Elmañoのパーツで2Dハウスを作る。' }
         };
 
-        function changeLang(lang) {
-            document.querySelectorAll('[data-key]').forEach(el => {
-                const key = el.getAttribute('data-key');
-                if(dict[lang] && dict[lang][key]) el.innerText = dict[lang][key];
-            });
-        }
-        function toggleLinks() {}
-        function toggleMusic() { const music = document.getElementById('bgMusic'); document.getElementById('musicToggle').checked ? music.play() : music.pause(); }
+        function toggleLinks() { const enabled = document.getElementById('linkToggle').checked; document.querySelectorAll('.nav-link').forEach(link => { if (!enabled) { if(link.getAttribute('href')) link.dataset.href = link.getAttribute('href'); link.removeAttribute('href'); link.style.color = 'gray'; link.style.pointerEvents = 'none'; } else { link.setAttribute('href', link.dataset.href); link.style.color = ''; link.style.pointerEvents = 'auto'; } }); }
+        function toggleMusic() { const music = document.getElementById('bgMusic'); const toggle = document.getElementById('musicToggle'); const volDiv = document.getElementById('volumeControl'); if (toggle.checked) { music.play(); volDiv.style.display = 'block'; } else { music.pause(); volDiv.style.display = 'none'; } }
+        function setVolume(val) { document.getElementById('bgMusic').volume = val; }
+        function changeLang(lang) { document.querySelectorAll('[data-key]').forEach(el => { const key = el.getAttribute('data-key'); if(dict[lang] && dict[lang][key]) el.innerText = dict[lang][key]; }); }
         function toggleSideBar() { const sb = document.getElementById("sideBar"); sb.style.width = sb.style.width === "250px" ? "0" : "250px"; }
         function showPage(id) { document.querySelectorAll('.page').forEach(p => p.classList.remove('active')); document.getElementById(id).classList.add('active'); document.getElementById("sideBar").style.width = "0"; }
     </script>
