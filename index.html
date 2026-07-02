@@ -7,8 +7,8 @@
         body { font-family: sans-serif; margin: 0; }
         .page { display: none; padding: 20px; }
         .active { display: block; }
-        #sideBar { height: 100%; width: 0; position: fixed; top: 0; left: 0; background: #eee; overflow-x: hidden; transition: 0.3s; padding-top: 60px; z-index: 10; }
-        #sideBar button { display: block; width: 100%; padding: 15px; border: none; background: none; font-size: 18px; cursor: pointer; }
+        #sideBar { height: 100%; width: 0; position: fixed; top: 0; left: 0; background: #eee; overflow-x: hidden; transition: 0.3s; padding-top: 60px; z-index: 10; border-right: 1px solid #ccc; }
+        #sideBar button { display: block; width: 100%; padding: 15px; border: none; background: none; font-size: 18px; cursor: pointer; text-align: left; }
     </style>
 </head>
 <body onload="changeLang('el')">
@@ -17,19 +17,50 @@
 
     <div id="sideBar">
         <button onclick="showPage('menu')" data-key="menu">Menù</button>
+        <button onclick="showPage('histoire')" data-key="histoire">Historìa</button>
         <button onclick="showPage('exercices')" data-key="exercices">Ejercicios</button>
+        <button onclick="showPage('livres')" data-key="livres">Libros</button>
+        <button onclick="showPage('agenda')" data-key="agenda">Agenda</button>
+        <button onclick="showPage('maj')" data-key="maj">Mìses a jòur</button>
         <button onclick="showPage('parametres')" data-key="parametres">Parametras</button>
+        <button onclick="showPage('infos')" data-key="infos">Informationes</button>
     </div>
 
     <div id="menu" class="page active">
         <h3 data-key="cursos">Cùrsos :</h3>
-        <a id="link1" href="https://youtu.be/tQWN9DhKSm0" data-key="admar">Admar o cùrso.</a>
+        <p data-key="desc">Cùrso nº1 en Elmaño : Debùtante A0+.</p>
+        <a href="https://youtu.be/tQWN9DhKSm0" data-key="admar">Admar o cùrso.</a>
+    </div>
+
+    <div id="histoire" class="page">
+        <h1 data-key="histoire">Historìa</h1>
     </div>
 
     <div id="exercices" class="page">
         <h1 data-key="exercices">Ejercicios</h1>
+        <h3 data-key="verbos">Verbos</h3>
+        <p data-key="v1">1) Conjùje la verbe etre.</p>
+        <p data-key="v2">2) Conjùje la verbe avèr.</p>
+        <p data-key="v3">3) Conjùje la verbe aller.</p>
         <h3 data-key="presentare">Presentaré</h3>
-        <p data-key="p1">1) Presentaré.</p>
+        <p data-key="p1">1) Présenta te.</p>
+        <p data-key="p2">2) Fer uña maìsone Dimentiòn2 avèc las zé pieças en Elmaño.</p>
+    </div>
+
+    <div id="livres" class="page">
+        <h1 data-key="livres">Libros</h1>
+        <a href="link_livre_1">Livre 1</a><br>
+        <a href="link_livre_2">Livre 2</a>
+    </div>
+
+    <div id="agenda" class="page">
+        <h1 data-key="agenda">Agenda</h1>
+        <p>Prochain evènement : ...</p>
+    </div>
+
+    <div id="maj" class="page">
+        <h1 data-key="maj">Mìses a jòur</h1>
+        <p>V1.0 : Lancement.</p>
     </div>
 
     <div id="parametres" class="page">
@@ -38,26 +69,20 @@
         <button onclick="changeLang('el')">Elmaño</button>
         <button onclick="changeLang('en')">English</button>
         <button onclick="changeLang('es')">Español</button>
-        <button onclick="changeLang('pt')">Português</button>
-        <button onclick="changeLang('ca')">Català</button>
-        <button onclick="changeLang('ru')">Русский</button>
-        <button onclick="changeLang('ja')">日本語</button>
         <h3 data-key="musique">Mùsica</h3>
         <button onclick="document.getElementById('bgMusic').play()" data-key="act_musique">Activar la mùsica</button>
+    </div>
+
+    <div id="infos" class="page">
+        <h1 data-key="infos">Informationes</h1>
     </div>
 
     <audio id="bgMusic" loop src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
 
     <script>
         const dict = {
-            'el': { 'title': 'ElmañoOficìal', 'menu': 'Menù', 'exercices': 'Ejercicios', 'parametres': 'Parametras', 'cursos': 'Cùrsos :', 'admar': 'Admar o cùrso.', 'presentare': 'Presentaré', 'p1': '1) Presentaré.', 'lenjuas': 'Lenjùas:', 'musique': 'Mùsica', 'act_musique': 'Activar la mùsica' },
-            'fr': { 'title': 'ElmañoOficìal', 'menu': 'Menu', 'exercices': 'Exercices', 'parametres': 'Parametres', 'cursos': 'Cours :', 'admar': 'Acceder au cours', 'presentare': 'Presente toi', 'p1': '1) Presente toi.', 'lenjuas': 'Langues :', 'musique': 'Musique', 'act_musique': 'Activer la musique' },
-            'en': { 'title': 'ElmañoOfficial', 'menu': 'Menu', 'exercices': 'Exercises', 'parametres': 'Settings', 'cursos': 'Courses:', 'admar': 'Access course', 'presentare': 'Introduce yourself', 'p1': '1) Introduce yourself.', 'lenjuas': 'Languages:', 'musique': 'Music', 'act_musique': 'Enable music' },
-            'es': { 'title': 'ElmañoOficial', 'menu': 'Menú', 'exercices': 'Ejercicios', 'parametres': 'Ajustes', 'cursos': 'Cursos:', 'admar': 'Acceder al curso', 'presentare': 'Presentarse', 'p1': '1) Preséntate.', 'lenjuas': 'Idiomas:', 'musique': 'Música', 'act_musique': 'Activar música' },
-            'pt': { 'title': 'ElmañoOficial', 'menu': 'Menu', 'exercices': 'Exercícios', 'parametres': 'Configurações', 'cursos': 'Cursos:', 'admar': 'Acessar curso', 'presentare': 'Apresente-se', 'p1': '1) Apresente-se.', 'lenjuas': 'Idiomas:', 'musique': 'Música', 'act_musique': 'Ativar música' },
-            'ca': { 'title': 'ElmañoOficial', 'menu': 'Menú', 'exercices': 'Exercicis', 'parametres': 'Configuració', 'cursos': 'Curs:', 'admar': 'Accedir al curs', 'presentare': 'Presenta\'t', 'p1': '1) Presenta\'t.', 'lenjuas': 'Llengües:', 'musique': 'Música', 'act_musique': 'Activar música' },
-            'ru': { 'title': 'ElmañoOfficial', 'menu': 'Меню', 'exercices': 'Упражнения', 'parametres': 'Настройки', 'cursos': 'Курс:', 'admar': 'Перейти', 'presentare': 'Представьтесь', 'p1': '1) Представьтесь.', 'lenjuas': 'Языки:', 'musique': 'Музыка', 'act_musique': 'Включить музыку' },
-            'ja': { 'title': 'ElmañoOfficial', 'menu': 'メニュー', 'exercices': '演習', 'parametres': '設定', 'cursos': 'コース:', 'admar': 'コース', 'presentare': '自己紹介', 'p1': '1) 自己紹介する。', 'lenjuas': '言語:', 'musique': '音楽', 'act_musique': '音楽を有効化' }
+            'el': { 'title': 'ElmañoOficìal', 'menu': 'Menù', 'histoire': 'Historìa', 'exercices': 'Ejercicios', 'livres': 'Libros', 'agenda': 'Agenda', 'maj': 'Mìses a jòur', 'parametres': 'Parametras', 'infos': 'Informationes', 'cursos': 'Cùrsos :', 'desc': 'Cùrso nº1 en Elmaño : Debùtante A0+.', 'admar': 'Admar o cùrso.', 'verbos': 'Verbos', 'v1': '1) Conjùje la verbe etre.', 'v2': '2) Conjùje la verbe avèr.', 'v3': '3) Conjùje la verbe aller.', 'presentare': 'Presentaré', 'p1': '1) Présenta te.', 'p2': '2) Fer uña maìsone Dimentiòn2 avèc las zé pieças en Elmaño.', 'lenjuas': 'Lenjùas:', 'musique': 'Mùsica', 'act_musique': 'Activar la mùsica' },
+            'fr': { 'title': 'ElmañoOficìal', 'menu': 'Menu', 'histoire': 'Histoire', 'exercices': 'Exercices', 'livres': 'Livres', 'agenda': 'Agenda', 'maj': 'Mises a jour', 'parametres': 'Parametres', 'infos': 'Informations', 'cursos': 'Cours :', 'desc': 'Cùrso n°1 en Elmaño : Debùtante A0+.', 'admar': 'Acceder au cours', 'verbos': 'Verbes', 'v1': '1) Conjugue le verbe etre.', 'v2': '2) Conjugue le verbe avoir.', 'v3': '3) Conjugue le verbe aller.', 'presentare': 'Presente toi', 'p1': '1) Presente toi.', 'p2': '2) Faire une maison 2D avec les pieces en Elmaño.', 'lenjuas': 'Langues :', 'musique': 'Musique', 'act_musique': 'Activer la musique' }
         };
 
         function changeLang(lang) {
