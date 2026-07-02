@@ -3,86 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <title data-key="title">ElmañoOficìal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body { font-family: sans-serif; margin: 0; }
-        .page { display: none; padding: 20px; }
+        #sideBar { height: 100%; width: 0; position: fixed; top: 0; left: 0; background: #eee; overflow-x: hidden; transition: 0.3s; padding-top: 60px; border-right: 1px solid #ccc; z-index: 10; }
+        #sideBar button { display: block; width: 100%; padding: 15px; text-align: left; border: none; background: none; font-size: 18px; cursor: pointer; }
+        .close-btn { position: absolute; top: 0; right: 10px; font-size: 30px; cursor: pointer; }
+        .content { padding: 20px; }
+        .page { display: none; }
         .active { display: block; }
-        #sideBar { height: 100%; width: 0; position: fixed; top: 0; left: 0; background: #eee; overflow-x: hidden; transition: 0.3s; padding-top: 60px; z-index: 10; border-right: 1px solid #ccc; }
-        #sideBar button { display: block; width: 100%; padding: 15px; border: none; background: none; font-size: 18px; cursor: pointer; text-align: left; }
+        .nav-bar { display: flex; gap: 10px; margin-bottom: 20px; }
+        .box { border: 1px solid #000; padding: 15px; margin-bottom: 10px; border-radius: 5px; }
+        .switch { position: relative; display: inline-block; width: 50px; height: 24px; margin-top: 10px; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 24px; }
+        .slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
+        input:checked + .slider { background-color: #4CAF50; }
+        input:checked + .slider:before { transform: translateX(26px); }
     </style>
 </head>
-<body onload="changeLang('el')">
+<body onload="changeLang('el'); toggleLinks()">
 
     <button onclick="toggleSideBar()">MENU</button>
 
     <div id="sideBar">
+        <span class="close-btn" onclick="toggleSideBar()">&times;</span>
         <button onclick="showPage('menu')" data-key="menu">Menù</button>
         <button onclick="showPage('histoire')" data-key="histoire">Historìa</button>
         <button onclick="showPage('exercices')" data-key="exercices">Ejercicios</button>
-        <button onclick="showPage('livres')" data-key="livres">Libros</button>
-        <button onclick="showPage('agenda')" data-key="agenda">Agenda</button>
-        <button onclick="showPage('maj')" data-key="maj">Mìses a jòur</button>
         <button onclick="showPage('parametres')" data-key="parametres">Parametras</button>
         <button onclick="showPage('infos')" data-key="infos">Informationes</button>
     </div>
 
-    <div id="menu" class="page active">
+    <div id="menu" class="page active content">
+        <div class="nav-bar">
+            <button onclick="showPage('menu')" data-key="menu">Menù</button>
+            <button onclick="showPage('liens')" data-key="sorteados">Sortéados</button>
+        </div>
         <h3 data-key="cursos">Cùrsos :</h3>
         <p data-key="desc">Cùrso nº1 en Elmaño : Debùtante A0+.</p>
-        <a href="https://youtu.be/tQWN9DhKSm0" data-key="admar">Admar o cùrso.</a>
+        <a class="nav-link" href="https://youtu.be/tQWN9DhKSm0" data-key="admar">Admar o cùrso.</a>
     </div>
 
-    <div id="histoire" class="page">
-        <h1 data-key="histoire">Historìa</h1>
+    <div id="liens" class="page content">
+        <div class="nav-bar">
+            <button onclick="showPage('menu')" data-key="menu">Menù</button>
+            <button onclick="showPage('liens')" data-key="sorteados">Sortéados</button>
+        </div>
+        <h3 data-key="livres">Libre de del ejercicios</h3>
+        <ul>
+            <li><a class="nav-link" href="https://read.bookcreator.com/Cx7Su8cUCWV4uJO2vjHDS5YmUOm1/1ENUrkYhQRer5VCb7uszsg">Libre Elmaño</a></li>
+            <li><a class="nav-link" href="https://read.bookcreator.com/Cx7Su8cUCWV4uJO2vjHDS5YmUOm1/e4FLXjOAQA2p7O23D7UFOQ">Libre Ejercicios Elmaño OSSO</a></li>
+        </ul>
+        <h3 data-key="agenda">Ajenda</h3>
+        <ul>
+            <li><a class="nav-link" href="https://limto.my.canva.site/jeremi">Ajenda Elmaño</a></li>
+        </ul>
     </div>
 
-    <div id="exercices" class="page">
+    <div id="histoire" class="page content"><h1 data-key="histoire">Historìa</h1></div>
+
+    <div id="exercices" class="page content">
         <h1 data-key="exercices">Ejercicios</h1>
         <h3 data-key="verbos">Verbos</h3>
         <p data-key="v1">1) Conjùje la verbe etre.</p>
         <p data-key="v2">2) Conjùje la verbe avèr.</p>
         <p data-key="v3">3) Conjùje la verbe aller.</p>
         <h3 data-key="presentare">Presentaré</h3>
-        <p data-key="p1">1) Présenta te.</p>
+        <p data-key="p1">1) Présente toi.</p>
         <p data-key="p2">2) Fer uña maìsone Dimentiòn2 avèc las zé pieças en Elmaño.</p>
     </div>
 
-    <div id="livres" class="page">
-        <h1 data-key="livres">Libros</h1>
-        <a href="link_livre_1">Livre 1</a><br>
-        <a href="link_livre_2">Livre 2</a>
+    <div id="infos" class="page content">
+        <div class="nav-bar">
+            <button onclick="showPage('infos')" data-key="infos">Informationes</button>
+            <button onclick="showPage('mises-a-jour')" data-key="maj">Mise a jue</button>
+        </div>
+        <h1 data-key="infos">Informationes</h1>
     </div>
 
-    <div id="agenda" class="page">
-        <h1 data-key="agenda">Agenda</h1>
-        <p>Prochain evènement : ...</p>
+    <div id="mises-a-jour" class="page content">
+        <div class="nav-bar">
+            <button onclick="showPage('infos')" data-key="infos">Informationes</button>
+            <button onclick="showPage('mises-a-jour')" data-key="maj">Mise a jue</button>
+        </div>
+        <h1 data-key="maj">Mise a jue</h1>
+        <div class="box"><strong data-key="v10">1.0 : Jo assé de la aplicatìon Elmaño.</strong></div>
     </div>
 
-    <div id="maj" class="page">
-        <h1 data-key="maj">Mìses a jòur</h1>
-        <p>V1.0 : Lancement.</p>
-    </div>
-
-    <div id="parametres" class="page">
+    <div id="parametres" class="page content">
         <h3 data-key="lenjuas">Lenjùas:</h3>
-        <button onclick="changeLang('fr')">Français</button>
         <button onclick="changeLang('el')">Elmaño</button>
+        <button onclick="changeLang('fr')">Français</button>
         <button onclick="changeLang('en')">English</button>
         <button onclick="changeLang('es')">Español</button>
+        <button onclick="changeLang('pt')">Português</button>
+        <button onclick="changeLang('ca')">Català</button>
+        <button onclick="changeLang('ru')">Русский</button>
+        <button onclick="changeLang('ja')">日本語</button>
         <h3 data-key="musique">Mùsica</h3>
-        <button onclick="document.getElementById('bgMusic').play()" data-key="act_musique">Activar la mùsica</button>
-    </div>
-
-    <div id="infos" class="page">
-        <h1 data-key="infos">Informationes</h1>
+        <label class="switch"><input type="checkbox" id="musicToggle" onchange="toggleMusic()"><span class="slider"></span></label>
     </div>
 
     <audio id="bgMusic" loop src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
 
     <script>
         const dict = {
-            'el': { 'title': 'ElmañoOficìal', 'menu': 'Menù', 'histoire': 'Historìa', 'exercices': 'Ejercicios', 'livres': 'Libros', 'agenda': 'Agenda', 'maj': 'Mìses a jòur', 'parametres': 'Parametras', 'infos': 'Informationes', 'cursos': 'Cùrsos :', 'desc': 'Cùrso nº1 en Elmaño : Debùtante A0+.', 'admar': 'Admar o cùrso.', 'verbos': 'Verbos', 'v1': '1) Conjùje la verbe etre.', 'v2': '2) Conjùje la verbe avèr.', 'v3': '3) Conjùje la verbe aller.', 'presentare': 'Presentaré', 'p1': '1) Présenta te.', 'p2': '2) Fer uña maìsone Dimentiòn2 avèc las zé pieças en Elmaño.', 'lenjuas': 'Lenjùas:', 'musique': 'Mùsica', 'act_musique': 'Activar la mùsica' },
-            'fr': { 'title': 'ElmañoOficìal', 'menu': 'Menu', 'histoire': 'Histoire', 'exercices': 'Exercices', 'livres': 'Livres', 'agenda': 'Agenda', 'maj': 'Mises a jour', 'parametres': 'Parametres', 'infos': 'Informations', 'cursos': 'Cours :', 'desc': 'Cùrso n°1 en Elmaño : Debùtante A0+.', 'admar': 'Acceder au cours', 'verbos': 'Verbes', 'v1': '1) Conjugue le verbe etre.', 'v2': '2) Conjugue le verbe avoir.', 'v3': '3) Conjugue le verbe aller.', 'presentare': 'Presente toi', 'p1': '1) Presente toi.', 'p2': '2) Faire une maison 2D avec les pieces en Elmaño.', 'lenjuas': 'Langues :', 'musique': 'Musique', 'act_musique': 'Activer la musique' }
+            'el': { 'title': 'ElmañoOficìal', 'menu': 'Menù', 'histoire': 'Historìa', 'exercices': 'Ejercicios', 'parametres': 'Parametras', 'infos': 'Informationes', 'sorteados': 'Sortéados', 'maj': 'Mise a jue', 'cursos': 'Cùrsos :', 'desc': 'Cùrso nº1 en Elmaño : Debùtante A0+.', 'admar': 'Admar o cùrso.', 'livres': 'Libre de del ejercicios', 'agenda': 'Ajenda', 'lenjuas': 'Lenjùas:', 'musique': 'Mùsica', 'verbos': 'Verbos', 'v1': '1) Conjùje la verbe etre.', 'v2': '2) Conjùje la verbe avèr.', 'v3': '3) Conjùje la verbe aller.', 'presentare': 'Presentaré', 'p1': '1) Présenta te.', 'p2': '2) Fer uña maìsone Dimentiòn2 avèc las zé pieças en Elmaño.', 'v10': '1.0 : Jo assé de la aplicatìon Elmaño.' },
+            'fr': { 'title': 'ElmañoOficìal', 'menu': 'Menu', 'histoire': 'Histoire', 'exercices': 'Exercices', 'parametres': 'Parametres', 'infos': 'Informations', 'sorteados': 'Liens', 'maj': 'Mises a jour', 'cursos': 'Cours :', 'desc': 'Cùrso n°1 en Elmaño : Debùtante A0+.', 'admar': 'Acceder au cours', 'livres': 'Livres d\'exercices', 'agenda': 'Agenda', 'lenjuas': 'Langues :', 'musique': 'Musique', 'verbos': 'Verbes', 'v1': '1) Conjugue le verbe etre.', 'v2': '2) Conjugue le verbe avoir.', 'v3': '3) Conjugue le verbe aller.', 'presentare': 'Presente toi', 'p1': '1) Presente toi.', 'p2': '2) Faire une maison 2D avec les pieces en Elmaño.', 'v10': '1.0 : Debut de l\'application Elmaño.' },
+            'en': { 'title': 'ElmañoOfficial', 'menu': 'Menu', 'histoire': 'History', 'exercices': 'Exercises', 'parametres': 'Settings', 'infos': 'Information', 'sorteados': 'Links', 'maj': 'Updates', 'cursos': 'Courses:', 'desc': 'Course n°1 in Elmaño: Beginner A0+', 'admar': 'Access course', 'livres': 'Exercise books', 'agenda': 'Agenda', 'lenjuas': 'Languages:', 'musique': 'Music', 'verbos': 'Verbs', 'v1': '1) Conjugate the verb to be.', 'v2': '2) Conjugate the verb to have.', 'v3': '3) Conjugate the verb to go.', 'presentare': 'Introduce yourself', 'p1': '1) Introduce yourself.', 'p2': '2) Make a 2D house with pieces in Elmaño.', 'v10': '1.0: Start of Elmaño app.' },
+            'es': { 'title': 'ElmañoOficial', 'menu': 'Menú', 'histoire': 'Historia', 'exercices': 'Ejercicios', 'parametres': 'Ajustes', 'infos': 'Información', 'sorteados': 'Enlaces', 'maj': 'Actualizaciones', 'cursos': 'Cursos:', 'desc': 'Curso n°1 en Elmaño: Principiante A0+', 'admar': 'Acceder al curso', 'livres': 'Libros de ejercicios', 'agenda': 'Agenda', 'lenjuas': 'Idiomas:', 'musique': 'Música', 'verbos': 'Verbos', 'v1': '1) Conjuga el verbo ser.', 'v2': '2) Conjuga el verbo haber.', 'v3': '3) Conjuga el verbo ir.', 'presentare': 'Presentarse', 'p1': '1) Preséntate.', 'p2': '2) Haz una casa 2D con piezas en Elmaño.', 'v10': '1.0: Inicio de la app Elmaño.' },
+            'pt': { 'title': 'ElmañoOficial', 'menu': 'Menu', 'histoire': 'História', 'exercices': 'Exercícios', 'parametres': 'Configurações', 'infos': 'Informações', 'sorteados': 'Links', 'maj': 'Atualizações', 'cursos': 'Cursos:', 'desc': 'Curso n°1 em Elmaño: Iniciante A0+', 'admar': 'Acessar curso', 'livres': 'Livros de exercícios', 'agenda': 'Agenda', 'lenjuas': 'Idiomas:', 'musique': 'Música', 'verbos': 'Verbos', 'v1': '1) Conjugue o verbo ser.', 'v2': '2) Conjugue o verbo ter.', 'v3': '3) Conjugue o verbo ir.', 'presentare': 'Apresente-se', 'p1': '1) Apresente-se.', 'p2': '2) Faça uma casa 2D com peças em Elmaño.', 'v10': '1.0: Início da app Elmaño.' },
+            'ca': { 'title': 'ElmañoOficial', 'menu': 'Menú', 'histoire': 'Història', 'exercices': 'Exercicis', 'parametres': 'Configuració', 'infos': 'Informació', 'sorteados': 'Enllaços', 'maj': 'Actualitzacions', 'cursos': 'Curs:', 'desc': 'Curs núm. 1 en Elmaño: Principiant A0+', 'admar': 'Accedir al curs', 'livres': 'Llibres d\'exercicis', 'agenda': 'Agenda', 'lenjuas': 'Llengües:', 'musique': 'Música', 'verbos': 'Verbs', 'v1': '1) Conjugueu el verb ser.', 'v2': '2) Conjugueu el verb tenir.', 'v3': '3) Conjugueu el verb anar.', 'presentare': 'Presenta\'t', 'p1': '1) Presenta\'t.', 'p2': '2) Fes una casa 2D amb peces en Elmaño.', 'v10': '1.0: Inici de l\'app Elmaño.' },
+            'ru': { 'title': 'ElmañoOfficial', 'menu': 'Меню', 'histoire': 'История', 'exercices': 'Упражнения', 'parametres': 'Настройки', 'infos': 'Информация', 'sorteados': 'Ссылки', 'maj': 'Обновления', 'cursos': 'Курс:', 'desc': 'Курс №1 на Elmaño: Новичок A0+', 'admar': 'Перейти', 'livres': 'Учебники', 'agenda': 'Повестка', 'lenjuas': 'Языки:', 'musique': 'Музыка', 'verbos': 'Глаголы', 'v1': '1) Спрягайте глагол "быть".', 'v2': '2) Спрягайте глагол "иметь".', 'v3': '3) Спрягайте глагол "идти".', 'presentare': 'Представьтесь', 'p1': '1) Представьтесь.', 'p2': '2) Сделайте 2D-дом из деталей на Elmaño.', 'v10': '1.0: Запуск приложения Elmaño.' },
+            'ja': { 'title': 'ElmañoOfficial', 'menu': 'メニュー', 'histoire': '歴史', 'exercices': '演習', 'parametres': '設定', 'infos': '情報', 'sorteados': 'リンク', 'maj': 'アップデート', 'cursos': 'コース:', 'desc': 'ElmañoコースNo.1: 初級A0+', 'admar': 'コース', 'livres': '演習書', 'agenda': 'アジェンダ', 'lenjuas': '言語:', 'musique': '音楽', 'verbos': '動詞', 'v1': '1) 動詞「である」を活用する。', 'v2': '2) 動詞「持つ」を活用する。', 'v3': '3) 動詞「行く」を活用する。', 'presentare': '自己紹介', 'p1': '1) 自己紹介する。', 'p2': '2) Elmañoのパーツで2Dハウスを作る。', 'v10': '1.0: Elmañoアプリの開始。' }
         };
 
         function changeLang(lang) {
@@ -91,8 +125,10 @@
                 if(dict[lang] && dict[lang][key]) el.innerText = dict[lang][key];
             });
         }
+        function toggleLinks() {}
+        function toggleMusic() { const music = document.getElementById('bgMusic'); document.getElementById('musicToggle').checked ? music.play() : music.pause(); }
         function toggleSideBar() { const sb = document.getElementById("sideBar"); sb.style.width = sb.style.width === "250px" ? "0" : "250px"; }
-        function showPage(id) { document.querySelectorAll('.page').forEach(p => p.classList.remove('active')); document.getElementById(id).classList.add('active'); toggleSideBar(); }
+        function showPage(id) { document.querySelectorAll('.page').forEach(p => p.classList.remove('active')); document.getElementById(id).classList.add('active'); document.getElementById("sideBar").style.width = "0"; }
     </script>
 </body>
 </html>
